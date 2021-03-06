@@ -96,6 +96,21 @@ router.post('/uploadVideo', (req, res) => {
   })
 })
 
+router.post('/getVideoDetail', (req, res) => {
+  // 랜딩 페이지의 비디오를 클릭하면
+  // 비디오 디테일 페이지에서 해당 비디오의 정보를 가져온다.
+  Video.findOne({"_id": req.body.videoId})
+    .populate('writer')
+    .exec((err, videoDetail) => {
+      if(err) return res.status(400).send(err)
+
+      return res.status(200).json({
+        success: true,
+        videoDetail
+      })
+    })
+})
+
 // get
 
 router.get('/getVideos', (req, res) => {
