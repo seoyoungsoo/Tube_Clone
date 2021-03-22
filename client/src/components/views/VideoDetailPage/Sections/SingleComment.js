@@ -11,8 +11,9 @@ function SingleComment(props) {
   const user = useSelector(state => state.user)
   const [OpenReply, setOpenReply] = useState(false)
   const [CommentValue, setCommentValue] = useState("")
+
   const onHandleChange = (event) => {
-    setCommentValue(event.currenTarget.CommentValue)
+    setCommentValue(event.currentTarget.value)
   }
 
   const onClickReplyOpen = () => {
@@ -33,6 +34,7 @@ function SingleComment(props) {
       .then(res => {
         if(res.data.success) {
           setCommentValue("")
+          setOpenReply(false)
           props.refreshFunction(res.data.result)
         } else {
           alert("댓글 입력에 실패했습니다.")
